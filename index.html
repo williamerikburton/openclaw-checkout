@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Your Order - OpenClaw Setup</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --accent: #dc2626;
+            --accent-hover: #b91c1c;
+            --success: #10b981;
+            --text: #1e293b;
+            --text-secondary: #64748b;
+            --text-muted: #94a3b8;
+            --bg: #f8fafc;
+            --bg-white: #ffffff;
+            --border: #e2e8f0;
+            --border-dark: #cbd5e1;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--bg);
+            min-height: 100vh;
+        }
+        
+        /* HEADER */
+        .header {
+            background: var(--bg-white);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 24px;
+            text-align: center;
+        }
+        
+        .header-logo {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+        
+        .secure-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            color: var(--success);
+            font-weight: 600;
+            margin-top: 4px;
+        }
+        
+        /* MAIN LAYOUT */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px;
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 48px;
+        }
+        
+        @media (max-width: 900px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* LEFT COLUMN */
+        .main-content h1 {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+        
+        .subtitle {
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+        }
+        
+        /* PRODUCT SELECTION */
+        .product-selection {
+            margin-bottom: 32px;
+        }
+        
+        .product-option {
+            background: var(--bg-white);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+        
+        .product-option:hover {
+            border-color: var(--border-dark);
+        }
+        
+        .product-option.selected {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, #eff6ff 0%, #ffffff 100%);
+        }
+        
+        .product-option input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            margin-top: 4px;
+            accent-color: var(--primary);
+        }
+        
+        .product-info {
+            flex: 1;
+        }
+        
+        .product-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+        
+        .product-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text);
+        }
+        
+        .product-price {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--text);
+        }
+        
+        .product-price span {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+        
+        .product-description {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+        
+        .product-features {
+            list-style: none;
+        }
+        
+        .product-features li {
+            font-size: 13px;
+            color: var(--text-secondary);
+            padding: 4px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .product-features li::before {
+            content: '✓';
+            color: var(--success);
+            font-weight: 700;
+        }
+        
+        .popular-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 100px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-left: 12px;
+        }
+        
+        /* FORM */
+        .form-section {
+            background: var(--bg-white);
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 24px;
+        }
+        
+        .form-section h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .form-section h3 span {
+            width: 28px;
+            height: 28px;
+            background: var(--primary);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        
+        @media (max-width: 600px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 6px;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 15px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .form-group input::placeholder {
+            color: var(--text-muted);
+        }
+        
+        /* RIGHT COLUMN - ORDER SUMMARY */
+        .order-summary {
+            position: sticky;
+            top: 24px;
+        }
+        
+        .summary-card {
+            background: var(--bg-white);
+            border-radius: 12px;
+            padding: 32px;
+            border: 1px solid var(--border);
+        }
+        
+        .summary-card h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 15px;
+        }
+        
+        .summary-item.discount {
+            color: var(--success);
+        }
+        
+        .summary-total {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 16px;
+            margin-top: 16px;
+            border-top: 2px solid var(--border);
+            font-size: 20px;
+            font-weight: 800;
+        }
+        
+        .guarantee-box {
+            background: #ecfdf5;
+            border: 1px solid #a7f3d0;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 24px 0;
+            display: flex;
+            gap: 12px;
+        }
+        
+        .guarantee-icon {
+            font-size: 24px;
+        }
+        
+        .guarantee-text h4 {
+            font-size: 14px;
+            font-weight: 700;
+            color: #065f46;
+            margin-bottom: 4px;
+        }
+        
+        .guarantee-text p {
+            font-size: 13px;
+            color: #047857;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 16px 24px;
+            font-size: 16px;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+            font-family: inherit;
+        }
+        
+        .btn-primary {
+            background: var(--accent);
+            color: #fff;
+            box-shadow: 0 4px 14px rgba(220, 38, 38, 0.3);
+        }
+        
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-1px);
+        }
+        
+        .payment-icons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 16px;
+            opacity: 0.6;
+        }
+        
+        .testimonial-mini {
+            background: var(--bg);
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 24px;
+        }
+        
+        .testimonial-mini p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-style: italic;
+            margin-bottom: 8px;
+        }
+        
+        .testimonial-mini .author {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text);
+        }
+        
+        /* TRUST BADGES */
+        .trust-badges {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin-top: 48px;
+            padding-top: 32px;
+            border-top: 1px solid var(--border);
+        }
+        
+        .trust-badge {
+            text-align: center;
+        }
+        
+        .trust-badge-icon {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+        
+        .trust-badge p {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="header-logo">OpenClaw</div>
+        <div class="secure-badge">
+            <svg width="14" height="14" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path></svg>
+            Secure Checkout
+        </div>
+    </header>
+
+    <!-- MAIN -->
+    <div class="container">
+        <!-- LEFT COLUMN -->
+        <div class="main-content">
+            <h1>Complete Your Order</h1>
+            <p class="subtitle">Select your plan and enter your details below</p>
+
+            <!-- PRODUCT SELECTION -->
+            <div class="product-selection">
+                <div class="product-option selected">
+                    <input type="radio" name="plan" id="platinum" checked>
+                    <div class="product-info">
+                        <div class="product-header">
+                            <div>
+                                <span class="product-name">Platinum Service</span>
+                                <span class="popular-badge">Most Popular</span>
+                            </div>
+                            <div class="product-price">$2,499</div>
+                        </div>
+                        <p class="product-description">We become your AI operations team. Fully managed, unlimited builds, weekly launches.</p>
+                        <ul class="product-features">
+                            <li>Everything in Self-Setup</li>
+                            <li>Fully managed by our team</li>
+                            <li>Unlimited skill builds</li>
+                            <li>Weekly offer launches</li>
+                            <li>Same-day priority support</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="product-option">
+                    <input type="radio" name="plan" id="selfsetup">
+                    <div class="product-info">
+                        <div class="product-header">
+                            <span class="product-name">Self-Setup</span>
+                            <div class="product-price">$199<span>/mo</span></div>
+                        </div>
+                        <p class="product-description">You operate the system. Perfect for hands-on entrepreneurs.</p>
+                        <ul class="product-features">
+                            <li>Complete OpenClaw installation</li>
+                            <li>Your own AI agent</li>
+                            <li>5 custom skills</li>
+                            <li>Monthly strategy call</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONTACT FORM -->
+            <div class="form-section">
+                <h3><span>1</span> Contact Information</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstname">First Name</label>
+                        <input type="text" id="firstname" placeholder="John">
+                    </div>
+                    <div class="form-group">
+                        <label for="lastname">Last Name</label>
+                        <input type="text" id="lastname" placeholder="Doe">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="john@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" placeholder="(555) 123-4567">
+                </div>
+            </div>
+
+            <!-- PAYMENT FORM -->
+            <div class="form-section">
+                <h3><span>2</span> Payment Information</h3>
+                <div class="form-group">
+                    <label for="card">Card Number</label>
+                    <input type="text" id="card" placeholder="1234 5678 9012 3456">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="expiry">Expiry Date</label>
+                        <input type="text" id="expiry" placeholder="MM/YY">
+                    </div>
+                    <div class="form-group">
+                        <label for="cvc">CVC</label>
+                        <input type="text" id="cvc" placeholder="123">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="nameoncard">Name on Card</label>
+                    <input type="text" id="nameoncard" placeholder="John Doe">
+                </div>
+            </div>
+
+            <!-- TRUST BADGES -->
+            <div class="trust-badges">
+                <div class="trust-badge">
+                    <div class="trust-badge-icon">🔒</div>
+                    <p>SSL Secure</p>
+                </div>
+                <div class="trust-badge">
+                    <div class="trust-badge-icon">✓</div>
+                    <p>7-Day Guarantee</p>
+                </div>
+                <div class="trust-badge">
+                    <div class="trust-badge-icon">💬</div>
+                    <p>24/7 Support</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT COLUMN - ORDER SUMMARY -->
+        <div class="order-summary">
+            <div class="summary-card">
+                <h3>Order Summary</h3>
+                
+                <div class="summary-item">
+                    <span>Platinum Service</span>
+                    <span>$2,499.00</span>
+                </div>
+                
+                <div class="summary-item discount">
+                    <span>Founder Discount</span>
+                    <span>-$0.00</span>
+                </div>
+                
+                <div class="summary-total">
+                    <span>Total</span>
+                    <span>$2,499.00</span>
+                </div>
+
+                <div class="guarantee-box">
+                    <div class="guarantee-icon">🛡️</div>
+                    <div class="guarantee-text">
+                        <h4>7-Day Money-Back Guarantee</h4>
+                        <p>Not satisfied? Get a full refund within 7 days, no questions asked.</p>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary">Complete Order →</button>
+
+                <div class="payment-icons">
+                    <span>💳</span>
+                    <span>💳</span>
+                    <span>💳</span>
+                    <span>💳</span>
+                </div>
+
+                <div class="testimonial-mini">
+                    <p>"Launched my first offer in 3 days. Made $4,200 in the first week. Best investment I've made."</p>
+                    <div class="author">— Michael R., Agency Owner</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
